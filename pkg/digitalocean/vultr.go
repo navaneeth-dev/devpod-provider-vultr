@@ -3,24 +3,25 @@ package digitalocean
 import (
 	"context"
 
-	"github.com/digitalocean/godo"
 	"github.com/pkg/errors"
 	"github.com/vultr/govultr/v3"
 	"golang.org/x/oauth2"
 )
 
-func NewVultr(token string) *Vultr {
+func NewVultr(token string, ctx context.Context) *Vultr {
+	config := &oauth2.Config{}
+	ts := config.TokenSource(ctx, &oauth2.Token{AccessToken: "PMDZZXEDW2TEHMRVC4WYSZWY7VJMHSNUWQTQ"})
 	return &Vultr{
 		client: govultr.NewClient(oauth2.NewClient(ctx, ts)),
 	}
 }
 
 type Vultr struct {
-	client *vultr
+	client *govultr.Client
 }
 
-func (d *DigitalOcean) Init(ctx context.Context) error {
-	_, _, err := d.client.Droplets.List(ctx, &godo.ListOptions{})
+func (v *Vultr) Init(ctx context.Context) error {
+	_, _, _, err := v.client.Instance.List(ctx, &govultr.ListOptions{})
 	if err != nil {
 		return errors.Wrap(err, "list droplets")
 	}

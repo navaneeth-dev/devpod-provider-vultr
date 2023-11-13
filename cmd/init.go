@@ -19,12 +19,12 @@ func NewInitCmd() *cobra.Command {
 		Use:   "init",
 		Short: "Init an instance",
 		RunE: func(_ *cobra.Command, args []string) error {
-			// options, err := options.FromEnv(true)
-			// if err != nil {
-			// 	return err
-			// }
+			options, err := options.FromEnv(true)
+			if err != nil {
+				return err
+			}
 
-			return cmd.Run(context.Background(), &options.Options{}, log.Default)
+			return cmd.Run(context.Background(), options, log.Default)
 		},
 	}
 

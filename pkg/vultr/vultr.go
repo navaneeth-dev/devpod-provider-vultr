@@ -37,7 +37,7 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 		Backups:    "enabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
 		AppID:      1125,
-		Plan:       "vc2-1c-2gb",
+		Plan:       "vc2-1c-1gb",
 		Region:     "blr",
 	}
 

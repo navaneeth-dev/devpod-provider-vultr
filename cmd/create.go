@@ -3,13 +3,12 @@ package cmd
 import (
 	"context"
 	"encoding/base64"
-	"strconv"
+	"fmt"
 
 	"github.com/loft-sh/devpod/pkg/log"
 	"github.com/loft-sh/devpod/pkg/ssh"
 	"github.com/navaneeth-dev/devpod-provider-vultr/pkg/options"
 	"github.com/navaneeth-dev/devpod-provider-vultr/pkg/vultr"
-	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/vultr/govultr/v3"
 )
@@ -38,17 +37,20 @@ func NewCreateCmd() *cobra.Command {
 
 // Run runs the command logic
 func (cmd *CreateCmd) Run(ctx context.Context, options *options.Options, log log.Logger) error {
+	fmt.Println("ok")
 	req, err := buildInstance(options)
 	if err != nil {
 		return err
 	}
 
-	diskSize, err := strconv.Atoi(options.DiskSize)
-	if err != nil {
-		return errors.Wrap(err, "parse disk size")
-	}
+	fmt.Println("ok")
 
-	return vultr.NewVultr(options.Token, ctx).Create(ctx, req, diskSize)
+	// diskSize, err := strconv.Atoi(options.DiskSize)
+	// if err != nil {
+	// 	return errors.Wrap(err, "parse disk size")
+	// }
+
+	return vultr.NewVultr(options.Token, ctx).Create(ctx, req, 69)
 }
 
 func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {

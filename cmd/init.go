@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"context"
-	"github.com/loft-sh/devpod-provider-digitalocean/pkg/digitalocean"
-	"github.com/loft-sh/devpod-provider-digitalocean/pkg/options"
+
 	"github.com/loft-sh/devpod/pkg/log"
+	"github.com/navaneeth-dev/devpod-provider-vultr/pkg/options"
+	"github.com/navaneeth-dev/devpod-provider-vultr/pkg/vultr"
 	"github.com/spf13/cobra"
 )
 
@@ -18,12 +19,12 @@ func NewInitCmd() *cobra.Command {
 		Use:   "init",
 		Short: "Init an instance",
 		RunE: func(_ *cobra.Command, args []string) error {
-			options, err := options.FromEnv(true)
-			if err != nil {
-				return err
-			}
+			// options, err := options.FromEnv(true)
+			// if err != nil {
+			// 	return err
+			// }
 
-			return cmd.Run(context.Background(), options, log.Default)
+			return cmd.Run(context.Background(), &options.Options{}, log.Default)
 		},
 	}
 
@@ -32,5 +33,5 @@ func NewInitCmd() *cobra.Command {
 
 // Run runs the command logic
 func (cmd *InitCmd) Run(ctx context.Context, options *options.Options, log log.Logger) error {
-	return digitalocean.NewDigitalOcean(options.Token).Init(ctx)
+	return vultr.NewVultr(options.Token, ctx).Init(ctx)
 }

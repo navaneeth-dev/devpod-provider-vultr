@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/loft-sh/devpod-provider-digitalocean/cmd"
+	"github.com/navaneeth-dev/devpod-provider-vultr/cmd"
 )
 
 func main() {

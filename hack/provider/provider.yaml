@@ -1,7 +1,7 @@
-name: digitalocean
+name: vultr
 version: ##VERSION##
 description: |-
-  DevPod on DigitalOcean
+  DevPod on Vultr
 icon: https://devpod.sh/assets/digitalocean.svg
 optionGroups:
   - options:

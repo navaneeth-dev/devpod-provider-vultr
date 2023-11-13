@@ -32,19 +32,38 @@ options:
     required: true
     default: fra1
     suggestions:
-      - ams2
-      - ams3
-      - blr1
-      - fra1
-      - lon1
-      - nyc1
-      - nyc2
-      - ncy3
-      - sfo1
-      - sfo2
-      - sfo3
-      - sgp1
-      - tor1
+      - ams
+      - atl
+      - blr
+      - bom
+      - cdg
+      - del
+      - dfw
+      - ewr
+      - fra
+      - hnl
+      - icn
+      - itm
+      - jnb
+      - lax
+      - lhr
+      - mad
+      - man
+      - mel
+      - mex
+      - mia
+      - nrt
+      - ord
+      - sao
+      - scl
+      - sea
+      - sgp
+      - sjc
+      - sto
+      - syd
+      - tlv
+      - waw
+      - yto
   DISK_SIZE:
     description: The disk size in GB.
     default: "30"

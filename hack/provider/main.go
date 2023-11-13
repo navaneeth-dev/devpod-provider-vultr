@@ -10,11 +10,11 @@ import (
 )
 
 var checksumMap = map[string]string{
-	"./release/devpod-provider-digitalocean-linux-amd64":       "##CHECKSUM_LINUX_AMD64##",
-	"./release/devpod-provider-digitalocean-linux-arm64":       "##CHECKSUM_LINUX_ARM64##",
-	"./release/devpod-provider-digitalocean-darwin-amd64":      "##CHECKSUM_DARWIN_AMD64##",
-	"./release/devpod-provider-digitalocean-darwin-arm64":      "##CHECKSUM_DARWIN_ARM64##",
-	"./release/devpod-provider-digitalocean-windows-amd64.exe": "##CHECKSUM_WINDOWS_AMD64##",
+	"./release/devpod-provider-vultr-linux-amd64":       "##CHECKSUM_LINUX_AMD64##",
+	"./release/devpod-provider-vultr-linux-arm64":       "##CHECKSUM_LINUX_ARM64##",
+	"./release/devpod-provider-vultr-darwin-amd64":      "##CHECKSUM_DARWIN_AMD64##",
+	"./release/devpod-provider-vultr-darwin-arm64":      "##CHECKSUM_DARWIN_ARM64##",
+	"./release/devpod-provider-vultr-windows-amd64.exe": "##CHECKSUM_WINDOWS_AMD64##",
 }
 
 func main() {

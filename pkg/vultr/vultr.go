@@ -10,7 +10,7 @@ import (
 
 func NewVultr(token string, ctx context.Context) *Vultr {
 	config := &oauth2.Config{}
-	ts := config.TokenSource(ctx, &oauth2.Token{AccessToken: "PMDZZXEDW2TEHMRVC4WYSZWY7VJMHSNUWQTQ"})
+	ts := config.TokenSource(ctx, &oauth2.Token{AccessToken: token})
 	return &Vultr{
 		client: govultr.NewClient(oauth2.NewClient(ctx, ts)),
 	}

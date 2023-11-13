@@ -63,26 +63,6 @@ func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {
 	}
 
 	resultScript := `#!/bin/sh
-
-# Mount volume to home
-mkdir -p /home/devpod
-mount -o discard,defaults,noatime /dev/disk/by-id/scsi-0DO_Volume_` + machineID + ` /home/devpod
-
-# Move docker data dir
-service docker stop
-cat > /etc/docker/daemon.json << EOF
-{
-  "data-root": "/home/devpod/.docker-daemon",
-  "live-restore": true
-}
-EOF
-# Make sure we only copy if volumes isn't initialized
-if [ ! -d "/home/devpod/.docker-daemon" ]; then
-  mkdir -p /home/devpod/.docker-daemon
-  rsync -aP /var/lib/docker/ /home/devpod/.docker-daemon
-fi
-service docker start
-
 # Create DevPod user and configure ssh
 useradd devpod -d /home/devpod
 if grep -q sudo /etc/groups; then

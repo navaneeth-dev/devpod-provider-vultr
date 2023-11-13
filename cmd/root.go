@@ -12,8 +12,8 @@ import (
 // NewRootCmd returns a new root command
 func NewRootCmd() *cobra.Command {
 	doCmd := &cobra.Command{
-		Use:           "devpod-provider-digitalocean",
-		Short:         "digitalocean provider commands",
+		Use:           "devpod-provider-vultr",
+		Short:         "vultr provider commands",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 

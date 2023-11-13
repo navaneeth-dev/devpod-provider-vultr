@@ -53,7 +53,7 @@ func Execute() {
 func BuildRoot() *cobra.Command {
 	rootCmd := NewRootCmd()
 
-	// rootCmd.AddCommand(NewCreateCmd())
+	rootCmd.AddCommand(NewCreateCmd())
 	// rootCmd.AddCommand(NewStatusCmd())
 	// rootCmd.AddCommand(NewDeleteCmd())
 	// rootCmd.AddCommand(NewStartCmd())

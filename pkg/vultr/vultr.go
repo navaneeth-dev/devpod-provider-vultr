@@ -36,7 +36,7 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 		Hostname:   "awesome-go.com",
 		Backups:    "enabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
-		OsID:       362,
+		AppID:      1125,
 		Plan:       "vc2-1c-2gb",
 		Region:     "blr",
 	}

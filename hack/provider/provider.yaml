@@ -8,7 +8,7 @@ optionGroups:
       - DISK_SIZE
       - DISK_IMAGE
       - MACHINE_TYPE
-    name: "Digital Ocean options"
+    name: "Vultr options"
   - options:
       - AGENT_PATH
       - AGENT_DATA_PATH
@@ -18,17 +18,17 @@ optionGroups:
     name: "Agent options"
 options:
   TOKEN:
-    description: The DigitalOcean token to use.
+    description: The Vultr token to use.
     required: true
     password: true
     command: |-
-      if [ ! -z "${DIGITALOCEAN_TOKEN}" ]; then
-        echo ${DIGITALOCEAN_TOKEN}
-      elif [ ! -z "${DIGITALOCEAN_ACCESS_TOKEN}" ]; then
-        echo ${DIGITALOCEAN_ACCESS_TOKEN}
+      if [ ! -z "${VULTR_TOKEN}" ]; then
+        echo ${VULTR_TOKEN}
+      elif [ ! -z "${VULTR_ACCESS_TOKEN}" ]; then
+        echo ${VULTR_ACCESS_TOKEN}
       fi
   REGION:
-    description: The digital ocean region to use. E.g. fra1
+    description: The Vultr region to use. E.g. fra1
     required: true
     default: fra1
     suggestions:

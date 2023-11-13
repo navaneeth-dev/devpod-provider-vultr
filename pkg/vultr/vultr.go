@@ -36,7 +36,7 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 		Hostname:   "awesome-go.com",
 		Backups:    "enabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
-		AppID:      1125,
+		ImageID:    "docker",
 		Plan:       "vc2-1c-1gb",
 		Region:     "blr",
 	}

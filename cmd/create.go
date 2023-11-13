@@ -5,13 +5,13 @@ import (
 	"encoding/base64"
 	"strconv"
 
-	"github.com/digitalocean/godo"
+	"github.com/loft-sh/devpod/pkg/log"
+	"github.com/loft-sh/devpod/pkg/ssh"
 	"github.com/navaneeth-dev/devpod-provider-vultr/pkg/options"
 	"github.com/navaneeth-dev/devpod-provider-vultr/pkg/vultr"
-	"github.com/navaneeth-dev/devpod/pkg/log"
-	"github.com/navaneeth-dev/devpod/pkg/ssh"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"github.com/vultr/govultr/v3"
 )
 
 // CreateCmd holds the cmd flags
@@ -105,7 +105,7 @@ ufw allow 22/tcp || true
 	return resultScript, nil
 }
 
-func buildInstance(options *options.Options) (*godo.DropletCreateRequest, error) {
+func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error) {
 	// generate ssh keys
 	userData, err := GetInjectKeypairScript(options.MachineFolder, options.MachineID)
 	if err != nil {
@@ -113,15 +113,16 @@ func buildInstance(options *options.Options) (*godo.DropletCreateRequest, error)
 	}
 
 	// generate instance object
-	instance := &godo.DropletCreateRequest{
-		Name:   options.MachineID,
-		Region: options.Region,
-		Size:   options.MachineType,
-		Image: godo.DropletCreateImage{
-			Slug: options.DiskImage,
-		},
-		UserData: userData,
-		Tags:     []string{"devpod"},
+	instance := &govultr.InstanceCreateReq{
+		Label:      "awesome-go-app",
+		Hostname:   "awesome-go.com",
+		Backups:    "disabled",
+		EnableIPv6: govultr.BoolToBoolPtr(false),
+		OsID:       362,
+		Plan:       "vc2-1c-2gb",
+		Region:     "blr",
+		UserData:   userData,
+		Tags:       []string{"devpod"},
 	}
 
 	return instance, nil

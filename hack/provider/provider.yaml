@@ -28,9 +28,9 @@ options:
         echo ${VULTR_ACCESS_TOKEN}
       fi
   REGION:
-    description: The Vultr region to use. E.g. blr
+    description: The Vultr region to use. E.g. fra
     required: true
-    default: fra1
+    default: fra
     suggestions:
       - ams
       - atl

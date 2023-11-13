@@ -29,36 +29,26 @@ func (v *Vultr) Init(ctx context.Context) error {
 	return nil
 }
 
-// func (d *DigitalOcean) Create(ctx context.Context, req *godo.DropletCreateRequest, diskSize int) error {
-// 	// create volume
-// 	volume, err := d.volumeByName(ctx, req.Name)
-// 	if err != nil {
-// 		return err
-// 	} else if volume == nil {
-// 		volume, _, err = d.client.Storage.CreateVolume(ctx, &godo.VolumeCreateRequest{
-// 			Region:          req.Region,
-// 			Name:            req.Name,
-// 			SizeGigaBytes:   int64(diskSize),
-// 			FilesystemType:  "ext4",
-// 			FilesystemLabel: "DevPod Data",
-// 			Tags:            []string{"devpod"},
-// 		})
-// 		if err != nil {
-// 			return errors.Wrap(err, "create volume")
-// 		}
-// 	}
+func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, diskSize int) error {
+	// create droplet
+	instanceOptions := &govultr.InstanceCreateReq{
+		Label:      "awesome-go-app",
+		Hostname:   "awesome-go.com",
+		Backups:    "enabled",
+		EnableIPv6: govultr.BoolToBoolPtr(false),
+		OsID:       362,
+		Plan:       "vc2-1c-2gb",
+		Region:     "blr",
+	}
 
-// 	// create droplet
-// 	req.Volumes = append(req.Volumes, godo.DropletCreateVolume{
-// 		ID: volume.ID,
-// 	})
-// 	_, _, err = d.client.Droplets.Create(ctx, req)
-// 	if err != nil {
-// 		return err
-// 	}
+	_, _, err := v.client.Instance.Create(ctx, instanceOptions)
 
-// 	return nil
-// }
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 // func (d *DigitalOcean) volumeByName(ctx context.Context, name string) (*godo.Volume, error) {
 // 	volumes, _, err := d.client.Storage.ListVolumes(ctx, &godo.ListVolumeParams{Name: name})

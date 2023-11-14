@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"encoding/base64"
+	"fmt"
 
 	"github.com/loft-sh/devpod/pkg/log"
 	"github.com/loft-sh/devpod/pkg/ssh"
@@ -60,26 +61,35 @@ func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {
 		return "", err
 	}
 
-	resultScript := `#!/bin/sh
-mkdir -p /home/devpod
-# Create DevPod user and configure ssh
-useradd devpod -d /home/devpod
-if grep -q sudo /etc/groups; then
-	usermod -aG sudo devpod
-elif grep -q wheel /etc/groups; then
-	usermod -aG wheel devpod
-fi
-echo "devpod ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/91-devpod
-mkdir -p /home/devpod/.ssh
-echo '` + string(publicKey) + `' > /home/devpod/.ssh/authorized_keys
-chmod 0700 /home/devpod/.ssh
-chmod 0600 /home/devpod/.ssh/authorized_keys
-chown devpod:devpod /home/devpod
-chown -R devpod:devpod /home/devpod/.ssh
+	// 	resultScript := `#!/bin/sh mkdir -p /home/devpod
+	// # Create DevPod user and configure ssh
+	// useradd devpod -d /home/devpod
+	// if grep -q sudo /etc/groups; then
+	// 	usermod -aG sudo devpod
+	// elif grep -q wheel /etc/groups; then
+	// 	usermod -aG wheel devpod
+	// fi
+	// echo "devpod ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/91-devpod
+	// mkdir -p /home/devpod/.ssh
+	// echo '` + string(publicKey) + `' > /home/devpod/.ssh/authorized_keys
+	// chmod 0700 /home/devpod/.ssh
+	// chmod 0600 /home/devpod/.ssh/authorized_keys
+	// chown devpod:devpod /home/devpod
+	// chown -R devpod:devpod /home/devpod/.ssh
 
-# Make sure we don't get limited
-ufw allow 22/tcp || true
+	// # Make sure we don't get limited
+	// ufw allow 22/tcp || true
+	// `
+
+	resultScript := `#cloud-config
+users:
+- name: devpod
+	sudo: ALL=(ALL) NOPASSWD:ALL
+	ssh_authorized_keys:
+		- ` + string(publicKey) + `
 `
+
+	fmt.Printf("Cloud Init Config: %v\n", resultScript)
 
 	return resultScript, nil
 }

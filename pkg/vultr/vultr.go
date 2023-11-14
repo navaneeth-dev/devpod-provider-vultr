@@ -50,6 +50,8 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 		return err
 	}
 
+	fmt.Printf("Instance Created: %+v\n", instance)
+
 	// wait till pending, to fix NotFound error in status
 	for instance.Status != "pending" {
 		fmt.Println("Waiting for pending instance:", instance.Status)
@@ -107,7 +109,7 @@ func (v *Vultr) GetByName(ctx context.Context, name string) (*govultr.Instance, 
 	listOptions := &govultr.ListOptions{}
 	for {
 		instances, meta, _, err := v.client.Instance.List(ctx, listOptions)
-		fmt.Println(instances)
+		fmt.Printf("%+v\n", instances)
 		if err != nil {
 			return nil, err
 		}

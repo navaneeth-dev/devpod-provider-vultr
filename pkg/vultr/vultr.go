@@ -37,6 +37,7 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 	instanceOptions := &govultr.InstanceCreateReq{
 		Label:      req.Label,
 		Hostname:   req.Hostname,
+		UserData:   req.UserData,
 		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
 		ImageID:    "docker",

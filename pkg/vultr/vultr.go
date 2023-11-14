@@ -52,9 +52,9 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 
 	fmt.Printf("Instance Created: %+v\n", instance)
 
-	// wait till pending, to fix NotFound error in status
-	for instance.Status != "pending" {
-		fmt.Println("Waiting for pending instance:", instance.Status)
+	// wait till installingbooting, to fix NotFound error in status
+	for instance.ServerStatus == "installingbooting" {
+		fmt.Println("Waiting for pending instance:", instance.ServerStatus)
 		time.Sleep(time.Second)
 	}
 

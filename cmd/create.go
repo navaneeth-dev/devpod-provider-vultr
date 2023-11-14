@@ -96,7 +96,7 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 
 	// generate instance object
 	instance := &govultr.InstanceCreateReq{
-		Label:      "awesome-go-app",
+		Label:      options.MachineID,
 		Hostname:   "awesome-go.com",
 		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),

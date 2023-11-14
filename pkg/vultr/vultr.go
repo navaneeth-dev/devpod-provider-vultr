@@ -32,8 +32,8 @@ func (v *Vultr) Init(ctx context.Context) error {
 func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, diskSize int) error {
 	// create droplet
 	instanceOptions := &govultr.InstanceCreateReq{
-		Label:      "awesome-go-app",
-		Hostname:   "awesome-go.com",
+		Label:      req.Label,
+		Hostname:   req.Hostname,
 		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
 		ImageID:    "docker",

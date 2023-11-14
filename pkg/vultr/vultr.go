@@ -136,53 +136,18 @@ func (v *Vultr) GetByName(ctx context.Context, name string) (*govultr.Instance, 
 	return nil, fmt.Errorf("instance with name %s not found", name)
 }
 
-// func (d *DigitalOcean) Delete(ctx context.Context, name string) error {
-// 	// delete volume
-// 	volume, err := d.volumeByName(ctx, name)
-// 	if err != nil {
-// 		return err
-// 	} else if volume != nil {
-// 		// detach volume
-// 		for _, dropletID := range volume.DropletIDs {
-// 			_, _, err = d.client.StorageActions.DetachByDropletID(ctx, volume.ID, dropletID)
-// 			if err != nil {
-// 				return errors.Wrap(err, "detach volume")
-// 			}
-// 		}
+func (v *Vultr) Delete(ctx context.Context, name string) error {
+	instance, err := v.GetByName(ctx, name)
+	if err != nil {
+		return err
+	} else if instance == nil {
+		return nil
+	}
 
-// 		// wait until volume is detached
-// 		for len(volume.DropletIDs) > 0 {
-// 			time.Sleep(time.Second)
+	err = v.client.Instance.Delete(ctx, instance.ID)
+	if err != nil {
+		return err
+	}
 
-// 			// re-get volume
-// 			volume, err = d.volumeByName(ctx, name)
-// 			if err != nil {
-// 				return err
-// 			} else if volume == nil {
-// 				break
-// 			}
-// 		}
-
-// 		// delete volume
-// 		if volume != nil {
-// 			_, err = d.client.Storage.DeleteVolume(ctx, volume.ID)
-// 			if err != nil {
-// 				return errors.Wrap(err, "delete volume")
-// 			}
-// 		}
-// 	}
-
-// 	droplet, err := d.GetByName(ctx, name)
-// 	if err != nil {
-// 		return err
-// 	} else if droplet == nil {
-// 		return nil
-// 	}
-
-// 	_, err = d.client.Droplets.Delete(ctx, droplet.ID)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
+	return nil
+}

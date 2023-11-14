@@ -3,6 +3,7 @@ package vultr
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/loft-sh/devpod/pkg/client"
 	"github.com/pkg/errors"
@@ -43,10 +44,16 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 		Region:     "blr",
 	}
 
-	_, _, err := v.client.Instance.Create(ctx, instanceOptions)
+	instance, _, err := v.client.Instance.Create(ctx, instanceOptions)
 
 	if err != nil {
 		return err
+	}
+
+	// wait till pending, to fix NotFound error in status
+	for instance.Status != "pending" {
+		fmt.Println("Waiting for pending instance:", instance.Status)
+		time.Sleep(time.Second)
 	}
 
 	return nil
@@ -100,6 +107,7 @@ func (v *Vultr) GetByName(ctx context.Context, name string) (*govultr.Instance, 
 	listOptions := &govultr.ListOptions{}
 	for {
 		instances, meta, _, err := v.client.Instance.List(ctx, listOptions)
+		fmt.Println(instances)
 		if err != nil {
 			return nil, err
 		}

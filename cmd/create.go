@@ -101,7 +101,7 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
 		OsID:       362,
-		Plan:       "vc2-1c-2gb",
+		Plan:       "vc2-1c-1gb",
 		Region:     "blr",
 		UserData:   userData,
 		Tags:       []string{"devpod"},

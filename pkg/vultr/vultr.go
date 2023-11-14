@@ -34,7 +34,7 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 	instanceOptions := &govultr.InstanceCreateReq{
 		Label:      "awesome-go-app",
 		Hostname:   "awesome-go.com",
-		Backups:    "enabled",
+		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
 		ImageID:    "docker",
 		Plan:       "vc2-1c-1gb",

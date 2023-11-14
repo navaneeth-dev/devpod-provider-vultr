@@ -3,7 +3,6 @@ package cmd
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
 
 	"github.com/loft-sh/devpod/pkg/log"
 	"github.com/loft-sh/devpod/pkg/ssh"
@@ -37,13 +36,10 @@ func NewCreateCmd() *cobra.Command {
 
 // Run runs the command logic
 func (cmd *CreateCmd) Run(ctx context.Context, options *options.Options, log log.Logger) error {
-	fmt.Println("ok")
 	req, err := buildInstance(options)
 	if err != nil {
 		return err
 	}
-
-	fmt.Println("ok")
 
 	// diskSize, err := strconv.Atoi(options.DiskSize)
 	// if err != nil {

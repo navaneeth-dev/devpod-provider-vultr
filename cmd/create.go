@@ -91,6 +91,7 @@ users:
 
 	fmt.Printf("Cloud Init Config: %v\n", resultScript)
 
+	resultScript = base64.StdEncoding.EncodeToString([]byte(resultScript))
 	return resultScript, nil
 }
 

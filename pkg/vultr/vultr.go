@@ -104,6 +104,7 @@ func (v *Vultr) GetByName(ctx context.Context, name string) (*govultr.Instance, 
 			return nil, err
 		}
 		for _, instance := range instances {
+			fmt.Println("Loop:", instance.Label)
 			if instance.Label == name {
 				return &instance, nil
 			}

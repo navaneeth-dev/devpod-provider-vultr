@@ -95,28 +95,31 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 func (v *Vultr) Status(ctx context.Context, name string) (client.Status, error) {
 	// get instance
 	instance, err := v.GetByName(ctx, name)
+	// instance nil, so error
 	if err != nil {
 		return client.StatusNotFound, err
 	}
 
 	// is busy?
-	if instance.Status != "active" {
+	if instance.Status == "pending" {
 		return client.StatusBusy, nil
 	}
 
-	return client.StatusRunning, nil
+	if instance.Status == "active" {
+		return client.StatusRunning, nil
+	}
+
+	return client.StatusNotFound, fmt.Errorf("instance status error: %v", client.StatusRunning)
 }
 
 func (v *Vultr) GetByName(ctx context.Context, name string) (*govultr.Instance, error) {
 	listOptions := &govultr.ListOptions{}
 	for {
 		instances, meta, _, err := v.client.Instance.List(ctx, listOptions)
-		fmt.Printf("%+v\n", instances)
 		if err != nil {
 			return nil, err
 		}
 		for _, instance := range instances {
-			fmt.Println("Loop:", instance.Label)
 			if instance.Label == name {
 				return &instance, nil
 			}

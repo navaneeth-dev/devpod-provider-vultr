@@ -2,7 +2,9 @@ package vultr
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/loft-sh/devpod/pkg/client"
 	"github.com/pkg/errors"
 	"github.com/vultr/govultr/v3"
 	"golang.org/x/oauth2"
@@ -79,43 +81,44 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 // 	return nil
 // }
 
-// func (d *DigitalOcean) Status(ctx context.Context, name string) (client.Status, error) {
-// 	// get droplet
-// 	droplet, err := d.GetByName(ctx, name)
-// 	if err != nil {
-// 		return client.StatusNotFound, err
-// 	} else if droplet == nil {
-// 		// check if volume exists
-// 		volume, err := d.volumeByName(ctx, name)
-// 		if err != nil {
-// 			return client.StatusNotFound, err
-// 		} else if volume != nil {
-// 			return client.StatusStopped, nil
-// 		}
+func (v *Vultr) Status(ctx context.Context, name string) (client.Status, error) {
+	// get instance
+	instance, err := v.GetByName(ctx, name)
+	if err != nil {
+		return client.StatusNotFound, err
+	}
 
-// 		return client.StatusNotFound, nil
-// 	}
+	// is busy?
+	if instance.Status != "active" {
+		return client.StatusBusy, nil
+	}
 
-// 	// is busy?
-// 	if droplet.Status != "active" {
-// 		return client.StatusBusy, nil
-// 	}
+	return client.StatusRunning, nil
+}
 
-// 	return client.StatusRunning, nil
-// }
+func (v *Vultr) GetByName(ctx context.Context, name string) (*govultr.Instance, error) {
+	listOptions := &govultr.ListOptions{}
+	for {
+		instances, meta, _, err := v.client.Instance.List(ctx, listOptions)
+		if err != nil {
+			return nil, err
+		}
+		for _, instance := range instances {
+			if instance.Label == name {
+				return &instance, nil
+			}
+		}
 
-// func (d *DigitalOcean) GetByName(ctx context.Context, name string) (*godo.Droplet, error) {
-// 	droplets, _, err := d.client.Droplets.ListByName(ctx, name, &godo.ListOptions{})
-// 	if err != nil {
-// 		return nil, err
-// 	} else if len(droplets) > 1 {
-// 		return nil, fmt.Errorf("multiple droplets with name %s found", name)
-// 	} else if len(droplets) == 0 {
-// 		return nil, nil
-// 	}
+		if meta.Links.Next == "" {
+			break
+		} else {
+			listOptions.Cursor = meta.Links.Next
+			continue
+		}
+	}
 
-// 	return &droplets[0], nil
-// }
+	return nil, fmt.Errorf("instance with name %s not found", name)
+}
 
 // func (d *DigitalOcean) Delete(ctx context.Context, name string) error {
 // 	// delete volume

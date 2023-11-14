@@ -61,6 +61,7 @@ func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {
 	}
 
 	resultScript := `#!/bin/sh
+mkdir -p /home/devpod
 # Create DevPod user and configure ssh
 useradd devpod -d /home/devpod
 if grep -q sudo /etc/groups; then

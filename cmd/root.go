@@ -58,7 +58,7 @@ func BuildRoot() *cobra.Command {
 	rootCmd.AddCommand(NewDeleteCmd())
 	// rootCmd.AddCommand(NewStartCmd())
 	// rootCmd.AddCommand(NewStopCmd())
-	// rootCmd.AddCommand(NewCommandCmd())
+	rootCmd.AddCommand(NewCommandCmd())
 	rootCmd.AddCommand(NewInitCmd())
 	return rootCmd
 }

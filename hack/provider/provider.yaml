@@ -89,17 +89,13 @@ options:
       - ubuntu-23-04-x64
   MACHINE_TYPE:
     description: The machine type to use.
-    default: s-4vcpu-8gb
+    default: vc2-1c-1gb
     suggestions:
-      - s-1vcpu-2gb
-      - s-2vcpu-4gb
-      - s-4vcpu-8gb
-      - s-8vcpu-16gb
-      - c-2
-      - c-4
-      - c-8
-      - c-16
-      - c-32
+      - vc2-1c-1gb
+      - vc2-1c-2gb
+      - vc2-2c-2gb
+      - vc2-1c-4gb
+      - vhf-1c-2gb
   INACTIVITY_TIMEOUT:
     description: If defined, will automatically stop the VM after the inactivity period.
     default: 10m

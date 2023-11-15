@@ -113,7 +113,7 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 		EnableIPv6: govultr.BoolToBoolPtr(true),
 		// OsID:       477, // debian
 		ImageID:  "docker",
-		Plan:     "vc2-1c-1gb",
+		Plan:     options.MachineType,
 		Region:   options.Region,
 		UserData: userData,
 		Tags:     []string{"devpod"},

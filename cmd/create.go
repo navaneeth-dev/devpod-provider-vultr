@@ -3,7 +3,6 @@ package cmd
 import (
 	"context"
 	"encoding/base64"
-	"fmt"
 
 	"github.com/loft-sh/devpod/pkg/log"
 	"github.com/loft-sh/devpod/pkg/ssh"
@@ -92,10 +91,7 @@ users:
     - ` + string(publicKey) + `
 `
 
-	fmt.Printf("Cloud Init Config: %v\n", resultScript)
-
 	resultScript = base64.StdEncoding.EncodeToString([]byte(resultScript))
-	fmt.Printf("Cloud Init B64: %v\n", resultScript)
 	return resultScript, nil
 }
 

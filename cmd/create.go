@@ -107,12 +107,11 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 		Label:      options.MachineID,
 		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(true),
-		// OsID:       477, // debian
-		ImageID:  "docker",
-		Plan:     options.MachineType,
-		Region:   options.Region,
-		UserData: userData,
-		Tags:     []string{"devpod"},
+		ImageID:    "docker",
+		Plan:       options.MachineType,
+		Region:     options.Region,
+		UserData:   userData,
+		Tags:       []string{"devpod"},
 	}
 
 	return instance, nil

@@ -114,7 +114,7 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 		// OsID:       477, // debian
 		ImageID:  "docker",
 		Plan:     "vc2-1c-1gb",
-		Region:   "blr",
+		Region:   options.Region,
 		UserData: userData,
 		Tags:     []string{"devpod"},
 	}

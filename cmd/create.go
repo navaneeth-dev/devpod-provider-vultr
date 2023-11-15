@@ -84,14 +84,15 @@ func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {
 	resultScript := `#cloud-config
 users:
 - name: devpod
-	sudo: ALL=(ALL) NOPASSWD:ALL
-	ssh_authorized_keys:
-		- ` + string(publicKey) + `
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  ssh_authorized_keys:
+    - ` + string(publicKey) + `
 `
 
 	fmt.Printf("Cloud Init Config: %v\n", resultScript)
 
 	resultScript = base64.StdEncoding.EncodeToString([]byte(resultScript))
+	fmt.Printf("Cloud Init B64: %v\n", resultScript)
 	return resultScript, nil
 }
 

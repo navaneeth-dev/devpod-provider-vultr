@@ -3,6 +3,7 @@ package cmd
 import (
 	"context"
 	"encoding/base64"
+	"fmt"
 
 	"github.com/loft-sh/devpod/pkg/log"
 	"github.com/loft-sh/devpod/pkg/ssh"
@@ -113,6 +114,8 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 		UserData:   userData,
 		Tags:       []string{"devpod"},
 	}
+
+	fmt.Printf("%#v\n", instance)
 
 	return instance, nil
 }

@@ -34,11 +34,10 @@ func FromEnv(skipMachine bool) (*Options, error) {
 		}
 	}
 
-	retOptions.Token = "PMDZZXEDW2TEHMRVC4WYSZWY7VJMHSNUWQTQ"
-	// retOptions.Token, err = fromEnvOrError("TOKEN")
-	// if err != nil {
-	// 	return nil, err
-	// }
+	retOptions.Token, err = fromEnvOrError("TOKEN")
+	if err != nil {
+		return nil, err
+	}
 	// retOptions.DiskSize, err = fromEnvOrError("DISK_SIZE")
 	// if err != nil {
 	// 	return nil, err

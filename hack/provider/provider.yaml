@@ -2,7 +2,7 @@ name: vultr
 version: ##VERSION##
 description: |-
   DevPod on Vultr
-icon: https://devpod.sh/assets/vultr.svg
+icon: https://www.vultr.com/media/logo_onwhite.svg
 optionGroups:
   - options:
       - DISK_SIZE

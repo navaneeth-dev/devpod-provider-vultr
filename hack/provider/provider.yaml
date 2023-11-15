@@ -72,6 +72,7 @@ options:
     default: docker
   MACHINE_TYPE:
     description: The machine type to use.
+    required: true
     default: vc2-1c-1gb
     suggestions:
       - vc2-1c-1gb

@@ -83,7 +83,9 @@ func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {
 
 	resultScript := `#cloud-config
 users:
+- default
 - name: devpod
+  shell: /bin/bash
   sudo: ALL=(ALL) NOPASSWD:ALL
   ssh_authorized_keys:
     - ` + string(publicKey) + `

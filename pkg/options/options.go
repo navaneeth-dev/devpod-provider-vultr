@@ -50,10 +50,10 @@ func FromEnv(skipMachine bool) (*Options, error) {
 	// if err != nil {
 	// 	return nil, err
 	// }
-	// retOptions.Region, err = fromEnvOrError("REGION")
-	// if err != nil {
-	// 	return nil, err
-	// }
+	retOptions.Region, err = fromEnvOrError("REGION")
+	if err != nil {
+		return nil, err
+	}
 
 	return retOptions, nil
 }

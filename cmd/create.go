@@ -51,6 +51,7 @@ func (cmd *CreateCmd) Run(ctx context.Context, options *options.Options, log log
 }
 
 func GetInjectKeypairScript(machineFolder, machineID string) (string, error) {
+	// devpod will create a new ssh key for this machine and forward your keys
 	publicKeyBase, err := ssh.GetPublicKeyBase(machineFolder)
 	if err != nil {
 		return "", err

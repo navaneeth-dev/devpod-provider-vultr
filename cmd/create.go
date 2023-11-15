@@ -109,14 +109,14 @@ func buildInstance(options *options.Options) (*govultr.InstanceCreateReq, error)
 	// generate instance object
 	instance := &govultr.InstanceCreateReq{
 		Label:      options.MachineID,
-		Hostname:   "awesome-go.com",
 		Backups:    "disabled",
-		EnableIPv6: govultr.BoolToBoolPtr(false),
-		OsID:       362,
-		Plan:       "vc2-1c-1gb",
-		Region:     "blr",
-		UserData:   userData,
-		Tags:       []string{"devpod"},
+		EnableIPv6: govultr.BoolToBoolPtr(true),
+		// OsID:       477, // debian
+		ImageID:  "docker",
+		Plan:     "vc2-1c-1gb",
+		Region:   "blr",
+		UserData: userData,
+		Tags:     []string{"devpod"},
 	}
 
 	return instance, nil

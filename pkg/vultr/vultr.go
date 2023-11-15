@@ -32,20 +32,9 @@ func (v *Vultr) Init(ctx context.Context) error {
 	return nil
 }
 
-func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, diskSize int) error {
+func (v *Vultr) Create(ctx context.Context, reqOpts *govultr.InstanceCreateReq, diskSize int) error {
 	// create droplet
-	instanceOptions := &govultr.InstanceCreateReq{
-		Label:      req.Label,
-		Hostname:   req.Hostname,
-		UserData:   req.UserData,
-		Backups:    "disabled",
-		EnableIPv6: govultr.BoolToBoolPtr(false),
-		OsID:       477,
-		Plan:       "vc2-1c-1gb",
-		Region:     "blr",
-	}
-
-	instance, _, err := v.client.Instance.Create(ctx, instanceOptions)
+	instance, _, err := v.client.Instance.Create(ctx, reqOpts)
 	if err != nil {
 		return err
 	}

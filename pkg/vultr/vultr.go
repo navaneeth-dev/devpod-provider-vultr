@@ -40,7 +40,7 @@ func (v *Vultr) Create(ctx context.Context, req *govultr.InstanceCreateReq, disk
 		UserData:   req.UserData,
 		Backups:    "disabled",
 		EnableIPv6: govultr.BoolToBoolPtr(false),
-		ImageID:    "docker",
+		OsID:       477,
 		Plan:       "vc2-1c-1gb",
 		Region:     "blr",
 	}

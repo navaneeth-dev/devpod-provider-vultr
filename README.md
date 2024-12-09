@@ -1,6 +1,5 @@
-# DevPod Provider Vultr
-
-DevPod allows you to spin up dev environments based on the devcontainer.json. This provider adds support for Vultr which has over 32 world wide locations.
+<h1 align="center">Vultr Provider for Devpod</h1>
+<p align="center">Create developer environments in the cloud with Vultr.</p>
 
 ## Usage
 
